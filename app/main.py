@@ -1,10 +1,19 @@
+"""
+Main application entry point for the AI API Suite using FastAPI.
+
+This module initializes the FastAPI app with metadata (title, description, version) 
+loaded from the settings and registers API routers.
+
+"""
+
 from fastapi import FastAPI
 from app.routes import summarizer
+from app.core.settings import settings
 
 app = FastAPI(
-    title="AI API Suite",
-    description="A collection of AI-powered APIs like summarization, sentiment analysis, etc.",
-    version="1.0.0"
+    title=settings.app_name,
+    description=settings.description,
+    version=settings.version
 )
 
 # Register routers
