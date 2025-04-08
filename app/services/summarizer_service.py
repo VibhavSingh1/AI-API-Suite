@@ -4,9 +4,9 @@ Module to store methods and services related to the summarizer service
 
 from transformers import pipeline, Pipeline
 from typing import Optional
-import logging
+from app.core.loggers import logger
 
-logger = logging.getLogger(__name__)
+from app.core.settings import settings
 
 # Singleton-like global variable for the summarizer model
 _summarizer: Optional[Pipeline] = None
@@ -23,7 +23,7 @@ def get_summarizer() -> Optional[Pipeline]:
     if _summarizer is None:
         try:
             logger.info("Loading summarization model...")
-            _summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+            _summarizer = pipeline("summarization", model=settings.summarization_model_name)
             logger.info("Summarizer model loaded successfully.")
         except Exception as e:
             logger.error(f"Error loading summarization model: {e}")

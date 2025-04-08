@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     description: str = "A collection of AI-powered APIs like summarization, sentiment analysis, etc."
     version: str = "1.0.0"
     log_level: str = "INFO"  # Keep INFO in production env
+    summarization_model_name: str = "facebook/bart-large-cnn"
 
     class Config:
         env_file = ".env"
