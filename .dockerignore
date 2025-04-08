@@ -1,0 +1,33 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.so
+
+# Python virtual environments
+venv/
+env/
+
+# Environment variables
+.env
+log/
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Jupyter
+*.ipynb_checkpoints
+
+# Docker
+Dockerfile
+docker-compose.yml
