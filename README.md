@@ -36,12 +36,12 @@ python run.py
 
 ### 🛠️ Step 1: Build Docker image
 ```bash
-docker build -t ai-summarizer .
+docker build -t ai-api-suite .
 ```
 
 ### ▶️ Step 2: Run Docker container
 ```bash
-docker run --env-file .env -p 8000:8000 ai-summarizer
+docker run --env-file .env -p 8000:8000 ai-api-suite
 ```
 
 ---
@@ -51,7 +51,7 @@ Create a `.env` file in the root directory with variables like:
 ```env
 ENVIRONMENT=development
 LOG_LEVEL=INFO
-MODEL_NAME=sshleifer/distilbart-cnn-12-6
+MODEL_NAME="facebook/bart-large-cnn"
 ```
 
 ---
