@@ -27,3 +27,5 @@ class SummarizationResponse(BaseModel):
     Response model containing the summarized text.
     """
     summary: str
+    char_count: int
+    word_count: int

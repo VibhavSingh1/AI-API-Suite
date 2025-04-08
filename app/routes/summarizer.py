@@ -43,9 +43,17 @@ def summarize(request: SummarizationRequest):
             min_length=request.min_length,
             do_sample=request.do_sample
         )
+
+        if not summary or not isinstance(summary, str):
+            raise HTTPException(status_code=500, detail="Generated summary is invalid or empty.")
+
         return JSONResponse(
             status_code=200,
-            content=SummarizationResponse(summary=summary)
+            content=SummarizationResponse(
+                summary=summary,
+                char_count=len(summary),
+                word_count=len(summary.split())
+                ).model_dump()
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Summarization failed: {str(e)}")
