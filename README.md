@@ -49,6 +49,7 @@ docker run --env-file .env -p 8000:8000 ai-api-suite
 ## ⚙️ Environment Variables
 Create a `.env` file in the root directory with variables like:
 ```env
+DEBUG=true
 ENVIRONMENT=development
 LOG_LEVEL=INFO
 MODEL_NAME="facebook/bart-large-cnn"
