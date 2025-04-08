@@ -11,6 +11,7 @@ from fastapi import HTTPException, APIRouter
 from app.models.summarizer import SummarizationRequest, SummarizationResponse
 from fastapi.responses import JSONResponse
 from app.services.summarizer_service import get_summarizer, summarize_text
+from app.core.loggers import logger
 
 router = APIRouter()
 
@@ -26,13 +27,16 @@ def summarize(request: SummarizationRequest):
     Returns:
         SummarizationResponse: The summarized version of the input text.
     """
+    logger.info("Received summarization request")
 
     if not request.text.strip():
+        logger.warning("Empty input text received")
         raise HTTPException(status_code=400, detail="Input text cannot be empty")
 
     # Get the summarizer model
     summarizer = get_summarizer()
     if summarizer is None:
+        logger.error("Summarization model unavailable")
         raise HTTPException(status_code=500, detail="Summarization model unvailable")
 
     try:
@@ -45,7 +49,10 @@ def summarize(request: SummarizationRequest):
         )
 
         if not summary or not isinstance(summary, str):
+            logger.error("Generated summary is invalid or empty")
             raise HTTPException(status_code=500, detail="Generated summary is invalid or empty.")
+
+        logger.info("Summary generated successfully")
 
         return JSONResponse(
             status_code=200,
@@ -56,4 +63,5 @@ def summarize(request: SummarizationRequest):
                 ).model_dump()
         )
     except Exception as e:
+        logger.exception(f"Summarization failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Summarization failed: {str(e)}")

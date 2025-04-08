@@ -9,6 +9,9 @@ loaded from the settings and registers API routers.
 from fastapi import FastAPI
 from app.routes import summarizer
 from app.core.settings import settings
+from app.core.loggers import logger
+
+logger.info(f"Starting {settings.app_name} v{settings.version} in {settings.environment} mode.")
 
 app = FastAPI(
     title=settings.app_name,
@@ -18,3 +21,4 @@ app = FastAPI(
 
 # Register routers
 app.include_router(summarizer.router, prefix="/summarizer", tags=["Summarizer"])
+logger.info("Router registered: /summarizer")

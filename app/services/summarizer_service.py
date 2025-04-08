@@ -22,11 +22,14 @@ def get_summarizer() -> Optional[Pipeline]:
     global _summarizer
     if _summarizer is None:
         try:
+            logger.info("Loading summarization model...")
             _summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
             logger.info("Summarizer model loaded successfully.")
         except Exception as e:
             logger.error(f"Error loading summarization model: {e}")
             _summarizer = None
+    else:
+        logger.info("Existing summarization model found!")
     return _summarizer
 
 
@@ -46,6 +49,7 @@ def summarize_text(
     Returns:
         str: The summarized text.
     """
+    logger.debug("Performing text summarization.")
     summary = model(
         text,
         max_length=max_length,

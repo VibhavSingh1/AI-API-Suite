@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     environment: str = "development" # fallback default
     description: str = "A collection of AI-powered APIs like summarization, sentiment analysis, etc."
     version: str = "1.0.0"
+    log_level: str = "INFO"  # Keep INFO in production env
 
     class Config:
         env_file = ".env"
