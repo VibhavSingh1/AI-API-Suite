@@ -1,4 +1,4 @@
-# 🤖 AI APIs SUITE - FastAPI + HuggingFace + Docker
+# 🤖 AI APIs SUITE - FastAPI + HuggingFace
 
 This is a FastAPI-based RESTful API that provides text summarization and other AI enabled features using a pre-trained transformer model from Hugging Face and other sources through API integrations. It is built with production best practices, structured logging, environment configuration, and containerized with Docker.
 
