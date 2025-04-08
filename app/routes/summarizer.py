@@ -7,16 +7,17 @@ Endpoints:
     - POST /summarizer/summarize: Returns a summarized version of the given text.
 """
 
-from fastapi import HTTPException, APIRouter
-from app.models.summarizer import SummarizationRequest, SummarizationResponse
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
-from app.services.summarizer_service import get_summarizer, summarize_text
+
 from app.core.loggers import logger
+from app.models.summarizer import SummarizationRequest, SummarizationResponse
+from app.services.summarizer_service import get_summarizer, summarize_text
 
 router = APIRouter()
 
 
-@router.post('/summarize', response_model=SummarizationResponse)
+@router.post("/summarize", response_model=SummarizationResponse)
 def summarize(request: SummarizationRequest):
     """
     Summarizes the given text input using a preloaded transformer model.
@@ -45,12 +46,14 @@ def summarize(request: SummarizationRequest):
             text=request.text,
             max_length=request.max_length,
             min_length=request.min_length,
-            do_sample=request.do_sample
+            do_sample=request.do_sample,
         )
 
         if not summary or not isinstance(summary, str):
             logger.error("Generated summary is invalid or empty")
-            raise HTTPException(status_code=500, detail="Generated summary is invalid or empty.")
+            raise HTTPException(
+                status_code=500, detail="Generated summary is invalid or empty."
+            )
 
         logger.info("Summary generated successfully")
 
@@ -59,8 +62,8 @@ def summarize(request: SummarizationRequest):
             content=SummarizationResponse(
                 summary=summary,
                 char_count=len(summary),
-                word_count=len(summary.split())
-                ).model_dump()
+                word_count=len(summary.split()),
+            ).model_dump(),
         )
     except Exception as e:
         logger.exception(f"Summarization failed: {str(e)}")
